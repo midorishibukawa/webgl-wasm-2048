@@ -1,0 +1,13 @@
+{
+  "name": "wasm_2048",
+  "version": "0.1.0",
+  "files": [
+    "wasm_2048_bg.wasm",
+    "wasm_2048.js",
+    "wasm_2048_bg.js",
+    "wasm_2048.d.ts"
+  ],
+  "module": "wasm_2048.js",
+  "types": "wasm_2048.d.ts",
+  "sideEffects": false
+}
