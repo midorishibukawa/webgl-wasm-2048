@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { Mesh, MeshBasicMaterial, PositionalAudio } from "three";
-import { Game } from "../../pkg/wasm_2048";
+import { MeshBasicMaterial } from "three";
+import { degToRad } from "three/src/math/MathUtils";
 
 export type Painter = {
     renderer: THREE.WebGLRenderer,
@@ -9,7 +9,10 @@ export type Painter = {
 }
 
 const painter: Painter = {
-    renderer: new THREE.WebGLRenderer({ antialias: true }),
+    renderer: new THREE.WebGLRenderer({
+        canvas: document.getElementById('c'),
+        antialias: true 
+    }),
     scene: new THREE.Scene(),
     camera: new THREE.PerspectiveCamera(
         45,
@@ -23,16 +26,24 @@ export const initDrawing = () => {
         
     painter.renderer.setSize(window.innerWidth, window.innerHeight);
 
-    painter.camera.position.z = 8;
+    const l = 960 - window.innerWidth;
+    painter.camera.position.z = l > 0 ? 10 + l / 60 : 10;
+    painter.camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degToRad(270));
 
-    document.body.appendChild(painter.renderer.domElement);
+    // document.body.appendChild(painter.renderer.domElement);
 
     window.addEventListener('resize', onWindowResize);
 }
 
 export const onWindowResize = () => {
+    const canvas = document.getElementById('c') as HTMLCanvasElement;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
     painter.renderer.setSize(window.innerWidth, window.innerHeight);
     painter.camera.aspect = window.innerWidth / window.innerHeight;
+    const l = 960 - window.innerWidth;
+    painter.camera.position.z = l > 0 ? 10 + l / 60 : 10;
     painter.camera.updateProjectionMatrix();
 }
 
