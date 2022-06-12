@@ -2,11 +2,11 @@ use wasm_bindgen::prelude::*;
 use rand::*;
 use std::collections::{BTreeSet, HashMap};
 
-macro_rules! log {
-    ( $( $t:tt)* ) => {
-        web_sys::console::log_1(&format!( $( $t )* ).into());
-    }
-}
+// macro_rules! log {
+//     ( $( $t:tt)* ) => {
+//         web_sys::console::log_1(&format!( $( $t )* ).into());
+//     }
+// }
 
 #[wasm_bindgen]
 #[repr(u8)]

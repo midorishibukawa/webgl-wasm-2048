@@ -5,7 +5,7 @@ import { Game } from "../../pkg/wasm_2048";
 export type Painter = {
     renderer: THREE.WebGLRenderer,
     scene: THREE.Scene,
-    camera: THREE.Camera
+    camera: THREE.PerspectiveCamera
 }
 
 const painter: Painter = {
@@ -32,7 +32,8 @@ export const initDrawing = () => {
 
 export const onWindowResize = () => {
     painter.renderer.setSize(window.innerWidth, window.innerHeight);
-    render();
+    painter.camera.aspect = window.innerWidth / window.innerHeight;
+    painter.camera.updateProjectionMatrix();
 }
 
 const animate = cellMap => {
