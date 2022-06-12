@@ -1,8 +1,6 @@
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 import { initDrawing, generateMeshes, render } from './renderer';
 
-console.log('Direction');
-
 const GAME_SIZE = 4;
 
 enum GameState {
@@ -94,8 +92,6 @@ const handleTouchMove = game => move => e => {
     };
 
     move(getDir(delta));
-
-    console.log(game)
 
     render();
     
