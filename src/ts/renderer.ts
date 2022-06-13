@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MeshBasicMaterial } from "three";
+import { MeshBasicMaterial, MeshPhysicalMaterial } from "three";
 import { degToRad } from "three/src/math/MathUtils";
 
 export type Painter = {
@@ -95,15 +95,17 @@ export const generateMeshes = (cells: number[]) => {
                 continue;
             }
             const boxGeometry = new THREE.BoxGeometry();
-            const material = new MeshBasicMaterial();
-            // const material = new MeshPhysicalMaterial({
-            //     color: colorMap.get(cell),
-            //     metalness: .1,
-            //     roughness: .05,
-            //     ior: 2.5,
-            //     transmission: 1,
-            //     side: THREE.DoubleSide
-            // });
+            // const material = new MeshBasicMaterial();
+            const material = new MeshPhysicalMaterial({
+                color: colorMap.get(cell),
+                emissive: colorMap.get(cell),
+                emissiveIntensity: .4,
+                metalness: .1,
+                roughness: .05,
+                ior: 2.5,
+                transmission: 1,
+                side: THREE.DoubleSide
+            });
             
             // const material = new MeshPhongMaterial({
                 // color: colorMap.get(cell),
@@ -118,7 +120,8 @@ export const generateMeshes = (cells: number[]) => {
                 // })
                 
             material.transparent = true;
-            material.reflectivity = 1;
+            material.opacity = .67;
+            // material.reflectivity = 1;
             
             material.color.setHex(colorMap.get(cell));
 
