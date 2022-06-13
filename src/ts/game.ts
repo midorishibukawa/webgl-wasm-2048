@@ -56,7 +56,7 @@ export const init = async () => {
     const m = move(MOVEMENT_KEYS)(game)(gameState)(memory);
     document.addEventListener('keydown', (key) => m(key));
     document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchmove', (e) => handleTouchMove(game)(m)(e));
+    document.addEventListener('touchmove', (e) => handleTouchMove(m)(e));
 }
 
 const move = MOVEMENT_KEYS => game => gameState => memory => key => {
@@ -85,7 +85,7 @@ const handleTouchStart = e => {
     [swipe.x, swipe.y] = [firstTouch.clientX, firstTouch.clientY];
 };                                                
                                                                          
-const handleTouchMove = game => move => e => {
+const handleTouchMove = move => e => {
     if (!swipe.x || !swipe.y) return;
     
     const delta = {
@@ -108,5 +108,3 @@ const getDir = delta => {
         preventDefault: () => {}
     }
 }
-
-init();
