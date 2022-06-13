@@ -1,7 +1,12 @@
+// const WebGL = await import('three/examples/jsm/capabilities/WebGL');
 import WebGL from 'three/examples/jsm/capabilities/WebGL';
 import { initDrawing, generateMeshes, render } from './renderer';
 
-const GAME_SIZE = 4;
+const GAME_SIZE= 4;
+const swipe = {
+    x: null,
+    y: null,
+};
 
 enum GameState {
     DEFAULT,
@@ -9,11 +14,14 @@ enum GameState {
     LOSS
 }
 
-const init = async () => {
+let i = false;
+export const init = async () => {
     if (!WebGL.isWebGLAvailable) {
         console.log('WebGL is not available!');
         return;
     } 
+    if (i) return;
+    i = true;
     const wasm = await import('../../pkg/wasm_2048');
     const Game = wasm.Game;
     const Direction = wasm.Direction;
@@ -63,20 +71,14 @@ const move = MOVEMENT_KEYS => game => gameState => memory => key => {
     if (game.is_game_over) window.requestAnimationFrame(gameOver);
 }
 
-const gameWin = gameState => {
-    gameState = GameState.WIN;
+const gameWin = () => {
     console.log("YOU WON!");
 }
 
-const gameOver = gameState => {
-    gameState = GameState.LOSS;
+const gameOver = () => {
     console.log("YOU LOSS!")
 }
 
-const swipe = {
-    x: null,
-    y: null,
-};
 
 const handleTouchStart = e => {
     const firstTouch = e.touches[0];                                      

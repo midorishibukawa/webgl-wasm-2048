@@ -28,9 +28,8 @@ export const initDrawing = () => {
 
     const l = 960 - window.innerWidth;
     painter.camera.position.z = l > 0 ? 10 + l / 60 : 10;
+    console.log('initDrawing');
     painter.camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degToRad(270));
-
-    // document.body.appendChild(painter.renderer.domElement);
 
     window.addEventListener('resize', onWindowResize);
 }
