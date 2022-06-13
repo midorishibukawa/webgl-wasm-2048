@@ -1,0 +1,14 @@
+{
+    "name": "2048",
+    "start_url": "/",
+    "display": "fullscreen",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "2048.png",
+            "sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+            "purpose": "maskable any"
+        }
+    ]
+}
