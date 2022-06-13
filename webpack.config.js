@@ -1,20 +1,22 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-    entry: './src/ts/index.ts',
+    entry: './src/ts/app.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'wasm_2048.js',
+        filename: 'app.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'dist/index.html'
+            template: './index.html'
         }),
-        // new WasmPackPlugin({
-        //     crateDirectory: path.resolve(__dirname, ".")
-        // })
+        new WorkboxWebpackPlugin.InjectManifest({
+            compileSrc: true,
+            swSrc: './src/ts/sw.ts',
+            swDest: './sw.js'
+        })
     ],
     module: {
         rules: [
@@ -30,5 +32,5 @@ module.exports = {
         asyncWebAssembly: true,
         topLevelAwait: true
     },
-    mode: 'development'
+    mode: 'production'
 };
